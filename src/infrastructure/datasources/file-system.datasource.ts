@@ -35,7 +35,7 @@ export class FileSystemDatasource implements LogDatasource{
     }
 
 
-    async saveLog(newLog: LogEntity): Promise<void> {
+    async saveLogs(newLog: LogEntity): Promise<void> {
         
         const logAsJson =`${JSON.stringify(newLog)}\n`;
 
@@ -51,8 +51,35 @@ export class FileSystemDatasource implements LogDatasource{
         
         
     }
-    getLog(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
-        throw new Error("Method not implemented.");
+
+    private getLogsFromFile = (path : string): LogEntity[]=>{
+
+        const content = fs.readFileSync(path, 'utf-8');
+        // barre linea por liena para obtener un tipo LogEntity
+        const logs = content.split('\n').map(
+            log => LogEntity.fromJson(log)
+        );
+        
+        return logs;
+    }
+
+
+    async getLogs(severityLevel:LogSeverityLevel): Promise<LogEntity[]> {
+        
+        switch (severityLevel) {
+              case LogSeverityLevel.low: 
+                return this.getLogsFromFile(this.allLogsPath);
+            
+              case LogSeverityLevel.medium: 
+                return this.getLogsFromFile(this.mediumLogsPath);
+              
+              case LogSeverityLevel.heigh: 
+                return this.getLogsFromFile(this.highLogsPath);
+              
+              default:                
+                throw new Error(`${ severityLevel} not implemented`); // si me manda otro tipo de level que no tengo       
+          
+        }       
     }
     
 }

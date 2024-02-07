@@ -15,5 +15,21 @@ export class LogEntity{
         this.level = level;
         this.createdAt = new Date();
     }
+    
+    //factory constructor en nuestra clase
+    static fromJson = (json: string):LogEntity=>{
+       const {message, level, createdAt} = JSON.parse(json);
+
+       const log = new LogEntity(message,level);
+       log.createdAt = new Date(createdAt);
+
+       return log;
+    
+       //--> Tambien puedo asgregar validaciones
+    //    if(!message) throw new Error('Message is required');
+    //    if(!level) throw new Error('Message is required');
+    //    if(!createdAt) throw new Error('Message is required');
+
+    }
 
 }
