@@ -7,7 +7,7 @@ main();
 
 
 function main(){
-    // Server.start();
+    Server.start();
 
-    console.log(envs.PORT);
+    // console.log(envs.PORT);
 }

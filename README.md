@@ -1,6 +1,6 @@
-# Proyecto NOc
+# Proyecto NOC 
 
-El objetuivo es crear una serie de tareas usando Arquitectura Limpia con Typescript
+El objetivo es crear una serie de tareas usando Arquitectura Limpia con Typescript
 
 # dev
 1. Clonar el archivo env.template a .env
@@ -14,3 +14,6 @@ MAILER_SECRET_KEY=
 
 PROD=false
 ```
+
+3. Ejecutar el comando ```npm install ```
+4. Ejecutar el comando ```npm run dev ```
