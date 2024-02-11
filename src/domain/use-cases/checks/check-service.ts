@@ -24,7 +24,7 @@ export class CheckService implements CheckServiceUseCase{
         if(!req.ok){
             throw new Error(`Error on check service ${url}`);
         }
-        const log = new LogEntity(`Serice ${url} working`, LogSeverityLevel.low);
+        const log = new LogEntity({message:`Serice ${url} working`,level: LogSeverityLevel.low,origin:'check-service.ts'});
         this.logRepository.saveLogs(log);
         this.successCalback && this.successCalback(); //forma corta de un if de si existe la y si si llamala
         // console.log(`${url} is ok`);
@@ -33,7 +33,7 @@ export class CheckService implements CheckServiceUseCase{
     } catch (error) {
          
         const errorMessage = `${url} is not ok .${error}`;
-         const log = new LogEntity(errorMessage, LogSeverityLevel.heigh);
+         const log = new LogEntity({message:errorMessage,level: LogSeverityLevel.heigh, origin:'check-service.ts'});
          this.logRepository.saveLogs(log);
          this.erroCallback && this.erroCallback(`${error}`);
          return false;

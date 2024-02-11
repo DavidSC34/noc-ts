@@ -1,27 +1,49 @@
+import { create } from "domain";
+
 export enum LogSeverityLevel{
     low = 'low',
     medium = 'medium',
     heigh = 'heigh',
 }
 
+export interface LogEntityoptions{
+    level:LogSeverityLevel;
+    message:string;
+    createdAt?:Date;
+    origin:string;
+    
+}
+
+
+
+
+
 export class LogEntity{
 
     public level:LogSeverityLevel;//enum
     public message:string;
-    public createdAt: Date;
+    public createdAt:Date;
+    public origin:string;
 
-    constructor( message:string, level:LogSeverityLevel){
+    constructor( options:LogEntityoptions){
+        const { message, level, createdAt= new Date(), origin} =options;
         this.message = message;
         this.level = level;
-        this.createdAt = new Date();
+        this.createdAt = createdAt;
+        this.origin = origin;
     }
     
     //factory constructor en nuestra clase
     static fromJson = (json: string):LogEntity=>{
-       const {message, level, createdAt} = JSON.parse(json);
+       const {message, level, createdAt,origin} = JSON.parse(json);
 
-       const log = new LogEntity(message,level);
-       log.createdAt = new Date(createdAt);
+       const log = new LogEntity({
+        message:message,
+        level:level,
+        createdAt:createdAt,
+        origin:origin
+    });
+    //    log.createdAt = new Date(createdAt);
 
        return log;
     
