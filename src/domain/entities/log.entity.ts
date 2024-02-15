@@ -54,4 +54,21 @@ export class LogEntity{
 
     }
 
+    //Creatmos otro factory function para tranformar un obnjeto a un LogEntity
+    static fromObject = (object:{[key:string]:any}): LogEntity=>{
+
+        const {message, level, createdAt, origin} = object;
+        //Validaciones
+
+        const log= new LogEntity({
+            message:message,
+            level:level,
+            createdAt:createdAt,
+            origin:origin
+        })
+
+        return log;
+
+    }
+
 }

@@ -24,9 +24,9 @@ async function main(){
     // await newLog.save();
     // console.log(newLog);
 
-    const logs = await LogModel.find();
-    console.log(logs);
-    // Server.start();
+    // const logs = await LogModel.find();
+    // console.log(logs);
+    Server.start();
 
     // console.log(envs.PORT);
 }
